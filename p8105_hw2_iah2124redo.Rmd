@@ -1,0 +1,16 @@
+---
+title: "p8105_hw2_iah2124redo"
+author: "Iris Hart"
+date: "2024-10-02"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE)
+```
+
+### Problem 0: Loading Packages 
+```{r load_libraries}
+library(tidyverse)
+library(readxl)
+```
