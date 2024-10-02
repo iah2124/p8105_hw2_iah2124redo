@@ -84,4 +84,21 @@ trans_ent |>
 ```
 60 stations service the A train, 17 of them being ADA compliant. 
 
+### Problem 2
+Reading the Mr. Trash Wheel data from the 2024 Trash Wheel Collection Data
+```{r}
+mtw = read_excel("202409 Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = cell_cols("A:M"))
+```
+Editing variable names to be unique
+```{r}
+names(mtw) <- make.names(names(mtw), unique = TRUE)
+```
+Removing the last two lines of the sheet, no data contained there
+```{r}
+mtw = mtw[-c(652, 653), ]
+```
+Viewing the cleaned Mr. Trash Wheel data
+```{r}
+head(mtw)
+```
 

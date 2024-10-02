@@ -156,3 +156,42 @@ trans_ent |>
 ```
 
 60 stations service the A train, 17 of them being ADA compliant.
+
+### Problem 2
+
+Reading the Mr. Trash Wheel data from the 2024 Trash Wheel Collection
+Data
+
+``` r
+mtw = read_excel("202409 Trash Wheel Collection Data.xlsx", sheet = "Mr. Trash Wheel", range = cell_cols("A:M"))
+```
+
+Editing variable names to be unique
+
+``` r
+names(mtw) <- make.names(names(mtw), unique = TRUE)
+```
+
+Removing the last two lines of the sheet, no data contained there
+
+``` r
+mtw = mtw[-c(652, 653), ]
+```
+
+Viewing the cleaned Mr. Trash Wheel data
+
+``` r
+head(mtw)
+## # A tibble: 6 × 13
+##   Dumpster Month Year  Date                Weight..tons. Volume..cubic.yards.
+##      <dbl> <chr> <chr> <dttm>                      <dbl>                <dbl>
+## 1        1 May   2014  2014-05-16 00:00:00          4.31                   18
+## 2        2 May   2014  2014-05-16 00:00:00          2.74                   13
+## 3        3 May   2014  2014-05-16 00:00:00          3.45                   15
+## 4        4 May   2014  2014-05-17 00:00:00          3.1                    15
+## 5        5 May   2014  2014-05-17 00:00:00          4.06                   18
+## 6        6 May   2014  2014-05-20 00:00:00          2.71                   13
+## # ℹ 7 more variables: Plastic.Bottles <dbl>, Polystyrene <dbl>,
+## #   Cigarette.Butts <dbl>, Glass.Bottles <dbl>, Plastic.Bags <dbl>,
+## #   Wrappers <dbl>, Sports.Balls <dbl>
+```
