@@ -102,3 +102,12 @@ Viewing the cleaned Mr. Trash Wheel data
 head(mtw)
 ```
 
+Rounding the number of sports balls to the nearest integer 
+```{r}
+mtw <- mtw %>%
+  mutate(Sports.Balls = as.integer(round(as.numeric(Sports.Balls))))
+```
+Check for rounded value in sports balls column
+```{r}
+head(mtw)
+```

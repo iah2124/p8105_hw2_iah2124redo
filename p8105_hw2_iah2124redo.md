@@ -195,3 +195,28 @@ head(mtw)
 ## #   Cigarette.Butts <dbl>, Glass.Bottles <dbl>, Plastic.Bags <dbl>,
 ## #   Wrappers <dbl>, Sports.Balls <dbl>
 ```
+
+Rounding the number of sports balls to the nearest integer
+
+``` r
+mtw <- mtw %>%
+  mutate(Sports.Balls = as.integer(round(as.numeric(Sports.Balls))))
+```
+
+Check for rounded value in sports balls column
+
+``` r
+head(mtw)
+## # A tibble: 6 × 13
+##   Dumpster Month Year  Date                Weight..tons. Volume..cubic.yards.
+##      <dbl> <chr> <chr> <dttm>                      <dbl>                <dbl>
+## 1        1 May   2014  2014-05-16 00:00:00          4.31                   18
+## 2        2 May   2014  2014-05-16 00:00:00          2.74                   13
+## 3        3 May   2014  2014-05-16 00:00:00          3.45                   15
+## 4        4 May   2014  2014-05-17 00:00:00          3.1                    15
+## 5        5 May   2014  2014-05-17 00:00:00          4.06                   18
+## 6        6 May   2014  2014-05-20 00:00:00          2.71                   13
+## # ℹ 7 more variables: Plastic.Bottles <dbl>, Polystyrene <dbl>,
+## #   Cigarette.Butts <dbl>, Glass.Bottles <dbl>, Plastic.Bags <dbl>,
+## #   Wrappers <dbl>, Sports.Balls <int>
+```
