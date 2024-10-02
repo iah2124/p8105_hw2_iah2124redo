@@ -14,3 +14,22 @@ knitr::opts_chunk$set(collapse = TRUE, message = FALSE)
 library(tidyverse)
 library(readxl)
 ```
+
+### Problem 1
+```{r}
+trans_ent = 
+  read_csv(
+    "NYC_Transit_Subway_Entrance_And_Exit_Data.csv",
+    col_types = cols(Route8 = "c", Route9 = "c", Route10 = "c", Route11 = "c")) |> 
+  janitor::clean_names() |> 
+  select(
+    line, station_name, station_latitude, station_longitude, 
+    starts_with("route"), entry, exit_only, vending, entrance_type, 
+    ada) |> 
+  mutate(entry = ifelse(entry == "YES", TRUE, FALSE))
+```
+
+```{r}
+dim(trans_ent)
+```
+This data set contains the variables: line, station name, station latitude, station longitude, routes, entry, exit only, vending, entrance type, and ada compliance. Cleaned the data by reading the file and using janitor to keep the variables needed, and change the names accordingly. The dimensions of this data set are 1868 x 20. This data is not considered "tidy". This is because route number should be a variable, as should route. That is, to obtain a tidy data set we would need to convert `route` variables from wide to long format. 
