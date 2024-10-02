@@ -151,3 +151,37 @@ Viewing the cleaned Gwynnda Trash Wheel data
 ```{r}
 head(gtw)
 ```
+
+Combining data sets 
+```{r}
+mtw <- mtw %>% mutate(Trash_Wheel = "Mr. Trash Wheel")
+ptw <- ptw %>% mutate(Trash_Wheel = "Professor Trash Wheel")
+gtw <- gtw %>% mutate(Trash_Wheel = "Gwynnda Trash Wheel")
+```
+
+Viewing structure of data set variables
+```{r}
+str(mtw)
+str(ptw)
+str(gtw)
+```
+Converting date variable into character 
+```{r}
+mtw <- mtw %>% mutate(Year = as.character(Year))
+ptw <- ptw %>% mutate(Year = as.character(Year))
+gtw <- gtw %>% mutate(Year = as.character(Year))
+```
+Combining the data sets
+```{r}
+combined_data <- bind_rows(mtw, ptw, gtw)
+```
+Making sure that trash wheel is the first column in the data set
+```{r}
+combined_data <- combined_data %>%
+  select(Trash_Wheel, everything()) %>%  # Ensure Trash_Wheel is the first column
+  distinct()
+```
+Printing the combined data
+```{r}
+print(combined_data)
+```
