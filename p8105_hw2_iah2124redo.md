@@ -220,3 +220,40 @@ head(mtw)
 ## #   Cigarette.Butts <dbl>, Glass.Bottles <dbl>, Plastic.Bags <dbl>,
 ## #   Wrappers <dbl>, Sports.Balls <int>
 ```
+
+Reading the Professor Trash Wheel data from the 2024 Trash Wheel
+Collection Data
+
+``` r
+ptw = read_excel("202409 Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = cell_cols("A:L"))
+```
+
+Editing variable names to be unique
+
+``` r
+names(ptw) <- make.names(names(ptw), unique = TRUE)
+```
+
+Removing the last three lines of the sheet, no data contained there
+
+``` r
+ptw = ptw[-c(119, 120, 121), ]
+```
+
+Viewing the cleaned Professor Trash Wheel data
+
+``` r
+head(ptw)
+## # A tibble: 6 × 12
+##   Dumpster Month     Year Date                Weight..tons. Volume..cubic.yards.
+##      <dbl> <chr>    <dbl> <dttm>                      <dbl>                <dbl>
+## 1        1 January   2017 2017-01-02 00:00:00          1.79                   15
+## 2        2 January   2017 2017-01-30 00:00:00          1.58                   15
+## 3        3 February  2017 2017-02-26 00:00:00          2.32                   18
+## 4        4 February  2017 2017-02-26 00:00:00          3.72                   15
+## 5        5 February  2017 2017-02-28 00:00:00          1.45                   15
+## 6        6 March     2017 2017-03-30 00:00:00          1.71                   15
+## # ℹ 6 more variables: Plastic.Bottles <dbl>, Polystyrene <dbl>,
+## #   Cigarette.Butts <dbl>, Glass.Bottles <dbl>, Plastic.Bags <dbl>,
+## #   Wrappers <dbl>
+```

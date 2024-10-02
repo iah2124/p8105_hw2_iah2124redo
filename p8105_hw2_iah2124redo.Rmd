@@ -111,3 +111,23 @@ Check for rounded value in sports balls column
 ```{r}
 head(mtw)
 ```
+
+Reading the Professor Trash Wheel data from the 2024 Trash Wheel Collection Data
+```{r}
+ptw = read_excel("202409 Trash Wheel Collection Data.xlsx", sheet = "Professor Trash Wheel", range = cell_cols("A:L"))
+```
+
+Editing variable names to be unique
+```{r}
+names(ptw) <- make.names(names(ptw), unique = TRUE)
+```
+
+Removing the last three lines of the sheet, no data contained there
+```{r}
+ptw = ptw[-c(119, 120, 121), ]
+```
+
+Viewing the cleaned Professor Trash Wheel data
+```{r}
+head(ptw)
+```
