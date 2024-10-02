@@ -131,3 +131,23 @@ Viewing the cleaned Professor Trash Wheel data
 ```{r}
 head(ptw)
 ```
+
+Reading the Gwynnda Trash Wheel data from the 2024 Trash Wheel Collection Data
+```{r}
+gtw = read_excel("202409 Trash Wheel Collection Data.xlsx", sheet = "Gwynnda Trash Wheel", range = cell_cols("A:K"))
+```
+
+Editing variable names to be unique
+```{r}
+names(gtw) <- make.names(names(gtw), unique = TRUE)
+```
+
+Removing the last line of the sheet, no data contained there
+```{r}
+gtw = gtw[-264, ]
+```
+
+Viewing the cleaned Gwynnda Trash Wheel data
+```{r}
+head(gtw)
+```

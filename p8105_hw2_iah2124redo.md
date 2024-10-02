@@ -257,3 +257,39 @@ head(ptw)
 ## #   Cigarette.Butts <dbl>, Glass.Bottles <dbl>, Plastic.Bags <dbl>,
 ## #   Wrappers <dbl>
 ```
+
+Reading the Gwynnda Trash Wheel data from the 2024 Trash Wheel
+Collection Data
+
+``` r
+gtw = read_excel("202409 Trash Wheel Collection Data.xlsx", sheet = "Gwynnda Trash Wheel", range = cell_cols("A:K"))
+```
+
+Editing variable names to be unique
+
+``` r
+names(gtw) <- make.names(names(gtw), unique = TRUE)
+```
+
+Removing the last line of the sheet, no data contained there
+
+``` r
+gtw = gtw[-264, ]
+```
+
+Viewing the cleaned Gwynnda Trash Wheel data
+
+``` r
+head(gtw)
+## # A tibble: 6 × 11
+##   Dumpster Month   Year Date                Weight..tons. Volume..cubic.yards.
+##      <dbl> <chr>  <dbl> <dttm>                      <dbl>                <dbl>
+## 1        1 July    2021 2021-07-03 00:00:00          0.93                   15
+## 2        2 July    2021 2021-07-07 00:00:00          2.26                   15
+## 3        3 July    2021 2021-07-07 00:00:00          1.62                   15
+## 4        4 July    2021 2021-07-16 00:00:00          1.76                   15
+## 5        5 July    2021 2021-07-30 00:00:00          1.53                   15
+## 6        6 August  2021 2021-08-11 00:00:00          2.06                   15
+## # ℹ 5 more variables: Plastic.Bottles <dbl>, Polystyrene <dbl>,
+## #   Cigarette.Butts <dbl>, Plastic.Bags <dbl>, Wrappers <dbl>
+```
