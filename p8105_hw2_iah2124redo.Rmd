@@ -227,6 +227,15 @@ bakes_df = read_csv("gbb_datasets/bakes.csv",
 results = read_csv("gbb_datasets/results.csv", skip = 2) |>
    janitor::clean_names() 
 ```
+
+```{r}
+colnames(results) <- c("Series", "Episode", "baker", "Technical", "Result")
+```
+Removing the first two rows in the results file
+```{r}
+results = results[-c(1, 2), ]
+```
+
 Change variable to be in unison, baker for the baker name across all datasets
 ```{r}
 bakers_df = bakers_df |>
@@ -258,4 +267,29 @@ Change Jo's name to be consistent across data sets
 ```{r}
 results = results |>
   mutate(baker = case_match(baker, "Joanne" ~ "Jo"))
+```
+
+Merge bakers and bakes data sets
+```{r}
+bakers_and_bakes = 
+  left_join(bakers_df, bakes_df, by = c("series", "baker"))
+```
+
+Check to see if merge worked
+```{r}
+print(bakers_and_bakes)
+```
+
+Merge bakers and bakes data to the results data
+```{r}
+gbb = 
+  left_join(bakers_and_bakes, bakes_df, by = c("series", "baker"))
+```
+Check to see if merge worked
+```{r}
+print(gbb)
+```
+Export to a CSV file in folder 
+```{r}
+write_csv(gbb, "gbb_datasets/gbb.csv")
 ```

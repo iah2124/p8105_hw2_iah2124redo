@@ -480,6 +480,16 @@ results = read_csv("gbb_datasets/results.csv", skip = 2) |>
    janitor::clean_names() 
 ```
 
+``` r
+colnames(results) <- c("Series", "Episode", "baker", "Technical", "Result")
+```
+
+Removing the first two rows in the results file
+
+``` r
+results = results[-c(1, 2), ]
+```
+
 Change variable to be in unison, baker for the baker name across all
 datasets
 
@@ -555,4 +565,72 @@ Change Jo’s name to be consistent across data sets
 ``` r
 results = results |>
   mutate(baker = case_match(baker, "Joanne" ~ "Jo"))
+```
+
+Merge bakers and bakes data sets
+
+``` r
+bakers_and_bakes = 
+  left_join(bakers_df, bakes_df, by = c("series", "baker"))
+```
+
+Check to see if merge worked
+
+``` r
+print(bakers_and_bakes)
+## # A tibble: 566 × 9
+##    baker baker_last_name series baker_age baker_occupation  hometown     episode
+##    <chr> <chr>            <dbl>     <dbl> <chr>             <chr>          <dbl>
+##  1 Ali   Imdad                4        25 Charity worker    Saltley, Bi…       1
+##  2 Ali   Imdad                4        25 Charity worker    Saltley, Bi…       2
+##  3 Ali   Imdad                4        25 Charity worker    Saltley, Bi…       3
+##  4 Ali   Imdad                4        25 Charity worker    Saltley, Bi…       4
+##  5 Alice Fevronia            10        28 Geography teacher Essex             NA
+##  6 Alvin Magallanes           6        37 Nurse             Bracknell, …       1
+##  7 Alvin Magallanes           6        37 Nurse             Bracknell, …       2
+##  8 Alvin Magallanes           6        37 Nurse             Bracknell, …       3
+##  9 Alvin Magallanes           6        37 Nurse             Bracknell, …       4
+## 10 Alvin Magallanes           6        37 Nurse             Bracknell, …       5
+## # ℹ 556 more rows
+## # ℹ 2 more variables: signature_bake <chr>, show_stopper <chr>
+```
+
+Merge bakers and bakes data to the results data
+
+``` r
+gbb = 
+  left_join(bakers_and_bakes, bakes_df, by = c("series", "baker"))
+## Warning in left_join(bakers_and_bakes, bakes_df, by = c("series", "baker")): Detected an unexpected many-to-many relationship between `x` and `y`.
+## ℹ Row 1 of `x` matches multiple rows in `y`.
+## ℹ Row 173 of `y` matches multiple rows in `x`.
+## ℹ If a many-to-many relationship is expected, set `relationship =
+##   "many-to-many"` to silence this warning.
+```
+
+Check to see if merge worked
+
+``` r
+print(gbb)
+## # A tibble: 4,008 × 12
+##    baker baker_last_name series baker_age baker_occupation hometown    episode.x
+##    <chr> <chr>            <dbl>     <dbl> <chr>            <chr>           <dbl>
+##  1 Ali   Imdad                4        25 Charity worker   Saltley, B…         1
+##  2 Ali   Imdad                4        25 Charity worker   Saltley, B…         1
+##  3 Ali   Imdad                4        25 Charity worker   Saltley, B…         1
+##  4 Ali   Imdad                4        25 Charity worker   Saltley, B…         1
+##  5 Ali   Imdad                4        25 Charity worker   Saltley, B…         2
+##  6 Ali   Imdad                4        25 Charity worker   Saltley, B…         2
+##  7 Ali   Imdad                4        25 Charity worker   Saltley, B…         2
+##  8 Ali   Imdad                4        25 Charity worker   Saltley, B…         2
+##  9 Ali   Imdad                4        25 Charity worker   Saltley, B…         3
+## 10 Ali   Imdad                4        25 Charity worker   Saltley, B…         3
+## # ℹ 3,998 more rows
+## # ℹ 5 more variables: signature_bake.x <chr>, show_stopper.x <chr>,
+## #   episode.y <dbl>, signature_bake.y <chr>, show_stopper.y <chr>
+```
+
+Export to a CSV file in folder
+
+``` r
+write_csv(gbb, "gbb_datasets/gbb.csv")
 ```
