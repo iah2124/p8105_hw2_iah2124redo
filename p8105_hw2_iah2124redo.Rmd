@@ -227,4 +227,19 @@ bakes_df = read_csv("gbb_datasets/bakes.csv",
 results = read_csv("gbb_datasets/results.csv", skip = 2) |>
    janitor::clean_names() 
 ```
+Change variable to be in unison, baker for the baker name across all datasets
+```{r}
+bakers_df = bakers_df |>
+  separate(baker_name, into = c("baker", "baker_last_name"), sep = " ")
+```
+Check for completeness 
+```{r}
+na_bakers_df = bakers_df |>
+  anti_join(bakes_df, by = c("baker", "series"))
+```
+
+```{r}
+print(na_bakers_df)
+```
+25 reported missing bakers who do not have the information across datasets
 

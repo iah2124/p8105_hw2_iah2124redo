@@ -479,3 +479,39 @@ bakes_df = read_csv("gbb_datasets/bakes.csv",
 results = read_csv("gbb_datasets/results.csv", skip = 2) |>
    janitor::clean_names() 
 ```
+
+Change variable to be in unison, baker for the baker name across all
+datasets
+
+``` r
+bakers_df = bakers_df |>
+  separate(baker_name, into = c("baker", "baker_last_name"), sep = " ")
+```
+
+Check for completeness
+
+``` r
+na_bakers_df = bakers_df |>
+  anti_join(bakes_df, by = c("baker", "series"))
+```
+
+``` r
+print(na_bakers_df)
+## # A tibble: 26 × 6
+##    baker  baker_last_name series baker_age baker_occupation             hometown
+##    <chr>  <chr>            <dbl>     <dbl> <chr>                        <chr>   
+##  1 Alice  Fevronia            10        28 Geography teacher            Essex   
+##  2 Amelia LeBruin             10        24 Fashion designer             Halifax 
+##  3 Antony Amourdoux            9        30 Banker                       London  
+##  4 Briony Williams             9        33 Full-time parent             Bristol 
+##  5 Dan    Beasley-Harling      9        36 Full-time parent             London  
+##  6 Dan    Chambers            10        32 Support worker               Rotherh…
+##  7 David  Atherton            10        36 International health adviser Whitby  
+##  8 Helena Garcia              10        40 Online project manager       Leeds   
+##  9 Henry  Bird                10        20 Student                      Durham  
+## 10 Imelda McCarron             9        33 Countryside recreation offi… County …
+## # ℹ 16 more rows
+```
+
+25 reported missing bakers who do not have the information across
+datasets
