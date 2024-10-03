@@ -396,3 +396,58 @@ print(combined_data)
 ## #   Polystyrene <dbl>, Cigarette.Butts <dbl>, Glass.Bottles <dbl>,
 ## #   Plastic.Bags <dbl>, Wrappers <dbl>, Sports.Balls <int>
 ```
+
+Identifying how many total rows are in the dataset
+
+``` r
+nrow(combined_data)
+## [1] 1032
+```
+
+Identifying the total weight of trash collected by Professor Trash Wheel
+
+``` r
+total_weight_professor_trash_wheel <- sum(ptw %>% pull(Weight..tons.), na.rm = TRUE)
+```
+
+Printing the total weight of trash collected by Professor Trash Wheel
+
+``` r
+print(total_weight_professor_trash_wheel)
+## [1] 246.74
+```
+
+Identifying the total number of cigarette butts collected by Gwynnda in
+June of 2022
+
+``` r
+total_cigarette_butts_gwynnda <- sum(gtw %>% filter(Month == "June", Year == 2022) %>% pull(Cigarette.Butts), na.rm = TRUE)
+```
+
+Printing the total number of cigarette butts collected by Gwynnda in
+June of 2022
+
+``` r
+print(total_cigarette_butts_gwynnda)
+## [1] 18120
+```
+
+``` r
+glimpse(combined_data)
+## Rows: 1,032
+## Columns: 14
+## $ Trash_Wheel          <chr> "Mr. Trash Wheel", "Mr. Trash Wheel", "Mr. Trash …
+## $ Dumpster             <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15…
+## $ Month                <chr> "May", "May", "May", "May", "May", "May", "May", …
+## $ Year                 <chr> "2014", "2014", "2014", "2014", "2014", "2014", "…
+## $ Date                 <dttm> 2014-05-16, 2014-05-16, 2014-05-16, 2014-05-17, …
+## $ Weight..tons.        <dbl> 4.31, 2.74, 3.45, 3.10, 4.06, 2.71, 1.91, 3.70, 2…
+## $ Volume..cubic.yards. <dbl> 18, 13, 15, 15, 18, 13, 8, 16, 14, 18, 15, 19, 15…
+## $ Plastic.Bottles      <dbl> 1450, 1120, 2450, 2380, 980, 1430, 910, 3580, 240…
+## $ Polystyrene          <dbl> 1820, 1030, 3100, 2730, 870, 2140, 1090, 4310, 27…
+## $ Cigarette.Butts      <dbl> 126000, 91000, 105000, 100000, 120000, 90000, 560…
+## $ Glass.Bottles        <dbl> 72, 42, 50, 52, 72, 46, 32, 58, 49, 75, 38, 45, 5…
+## $ Plastic.Bags         <dbl> 584, 496, 1080, 896, 368, 672, 416, 1552, 984, 44…
+## $ Wrappers             <dbl> 1162, 874, 2032, 1971, 753, 1144, 692, 3015, 1988…
+## $ Sports.Balls         <int> 7, 5, 6, 6, 7, 5, 3, 6, 6, 7, 6, 8, 6, 6, 6, 6, 5…
+```

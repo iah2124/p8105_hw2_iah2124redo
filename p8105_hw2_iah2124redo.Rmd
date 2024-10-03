@@ -185,3 +185,28 @@ Printing the combined data
 ```{r}
 print(combined_data)
 ```
+Identifying how many total rows are in the dataset
+```{r}
+nrow(combined_data)
+```
+Identifying the total weight of trash collected by Professor Trash Wheel
+```{r}
+total_weight_professor_trash_wheel <- sum(ptw %>% pull(Weight..tons.), na.rm = TRUE)
+```
+Printing the total weight of trash collected by Professor Trash Wheel
+```{r}
+print(total_weight_professor_trash_wheel)
+```
+
+Identifying the total number of cigarette butts collected by Gwynnda in June of 2022
+```{r}
+total_cigarette_butts_gwynnda <- sum(gtw %>% filter(Month == "June", Year == 2022) %>% pull(Cigarette.Butts), na.rm = TRUE)
+```
+Printing the total number of cigarette butts collected by Gwynnda in June of 2022
+```{r}
+print(total_cigarette_butts_gwynnda)
+```
+
+```{r}
+glimpse(combined_data)
+```
