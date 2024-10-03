@@ -206,7 +206,9 @@ Printing the total number of cigarette butts collected by Gwynnda in June of 202
 ```{r}
 print(total_cigarette_butts_gwynnda)
 ```
-
+Key variables
 ```{r}
 glimpse(combined_data)
 ```
+
+In this combined data set containing data from Mr. Trash Wheel, Professor Trash Wheel, and Gwynnda Trash Wheel sets, there are 1032 total observations. Key variables in this data set are which trash wheel the data comes from, month,  year, the weight (in tons), date of trash collection, and cigarette butts collected. The total weight of trash collected by Professor Trash Wheel is 246.72tons. The total number of cigarette butts collected by Gwynnda in June of 2022 was 18120. This combined data set shows key information on how much trash is collected by each wheel, type of trash, and when it was collected. 

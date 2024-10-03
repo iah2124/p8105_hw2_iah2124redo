@@ -432,6 +432,8 @@ print(total_cigarette_butts_gwynnda)
 ## [1] 18120
 ```
 
+Key variables
+
 ``` r
 glimpse(combined_data)
 ## Rows: 1,032
@@ -451,3 +453,13 @@ glimpse(combined_data)
 ## $ Wrappers             <dbl> 1162, 874, 2032, 1971, 753, 1144, 692, 3015, 1988…
 ## $ Sports.Balls         <int> 7, 5, 6, 6, 7, 5, 3, 6, 6, 7, 6, 8, 6, 6, 6, 6, 5…
 ```
+
+In this combined data set containing data from Mr. Trash Wheel,
+Professor Trash Wheel, and Gwynnda Trash Wheel sets, there are 1032
+total observations. Key variables in this data set are which trash wheel
+the data comes from, month, year, the weight (in tons), date of trash
+collection, and cigarette butts collected. The total weight of trash
+collected by Professor Trash Wheel is 246.72tons. The total number of
+cigarette butts collected by Gwynnda in June of 2022 was 18120. This
+combined data set shows key information on how much trash is collected
+by each wheel, type of trash, and when it was collected.
