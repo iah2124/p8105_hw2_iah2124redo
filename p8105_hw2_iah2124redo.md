@@ -484,18 +484,12 @@ results = read_csv("gbb_datasets/results.csv", skip = 2) |>
 colnames(results) <- c("series", "Episode", "baker", "Technical", "Result")
 ```
 
-Removing the first two rows in the results file
-
-``` r
-results = results[-c(1, 2), ]
-```
-
 Change variable to be in unison, baker for the baker name across all
 datasets
 
 ``` r
 bakers_df = bakers_df |>
-  separate(baker_name, into = c("baker", "baker_last_name"), sep = " ")
+  separate(baker_name, into = c("baker", "baker_last_name"), sep = " ", fill = "right")
 ```
 
 Check for completeness
@@ -564,7 +558,7 @@ Change Jo’s name to be consistent across data sets
 
 ``` r
 results = results |>
-  mutate(baker = case_match(baker, "Joanne" ~ "Jo"))
+  mutate(baker = if_else(baker == "Joanne", "Jo", baker))
 ```
 
 Merge bakers and bakes data sets
@@ -600,26 +594,31 @@ Merge bakers and bakes data to the results data
 ``` r
 gbb = 
   left_join(bakers_and_bakes, results, by = c("series", "baker"))
+## Warning in left_join(bakers_and_bakes, results, by = c("series", "baker")): Detected an unexpected many-to-many relationship between `x` and `y`.
+## ℹ Row 1 of `x` matches multiple rows in `y`.
+## ℹ Row 277 of `y` matches multiple rows in `x`.
+## ℹ If a many-to-many relationship is expected, set `relationship =
+##   "many-to-many"` to silence this warning.
 ```
 
 Check to see if merge worked
 
 ``` r
 print(gbb)
-## # A tibble: 573 × 12
-##    baker baker_last_name series baker_age baker_occupation  hometown     episode
-##    <chr> <chr>            <dbl>     <dbl> <chr>             <chr>          <dbl>
-##  1 Ali   Imdad                4        25 Charity worker    Saltley, Bi…       1
-##  2 Ali   Imdad                4        25 Charity worker    Saltley, Bi…       2
-##  3 Ali   Imdad                4        25 Charity worker    Saltley, Bi…       3
-##  4 Ali   Imdad                4        25 Charity worker    Saltley, Bi…       4
-##  5 Alice Fevronia            10        28 Geography teacher Essex             NA
-##  6 Alvin Magallanes           6        37 Nurse             Bracknell, …       1
-##  7 Alvin Magallanes           6        37 Nurse             Bracknell, …       2
-##  8 Alvin Magallanes           6        37 Nurse             Bracknell, …       3
-##  9 Alvin Magallanes           6        37 Nurse             Bracknell, …       4
-## 10 Alvin Magallanes           6        37 Nurse             Bracknell, …       5
-## # ℹ 563 more rows
+## # A tibble: 5,410 × 12
+##    baker baker_last_name series baker_age baker_occupation hometown      episode
+##    <chr> <chr>            <dbl>     <dbl> <chr>            <chr>           <dbl>
+##  1 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+##  2 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+##  3 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+##  4 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+##  5 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+##  6 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+##  7 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+##  8 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+##  9 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+## 10 Ali   Imdad                4        25 Charity worker   Saltley, Bir…       1
+## # ℹ 5,400 more rows
 ## # ℹ 5 more variables: signature_bake <chr>, show_stopper <chr>, Episode <dbl>,
 ## #   Technical <dbl>, Result <chr>
 ```

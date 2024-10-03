@@ -231,15 +231,11 @@ results = read_csv("gbb_datasets/results.csv", skip = 2) |>
 ```{r}
 colnames(results) <- c("series", "Episode", "baker", "Technical", "Result")
 ```
-Removing the first two rows in the results file
-```{r}
-results = results[-c(1, 2), ]
-```
 
 Change variable to be in unison, baker for the baker name across all datasets
 ```{r}
 bakers_df = bakers_df |>
-  separate(baker_name, into = c("baker", "baker_last_name"), sep = " ")
+  separate(baker_name, into = c("baker", "baker_last_name"), sep = " ", fill = "right")
 ```
 Check for completeness 
 ```{r}
@@ -266,8 +262,9 @@ Identified Jo Wheatley
 Change Jo's name to be consistent across data sets
 ```{r}
 results = results |>
-  mutate(baker = case_match(baker, "Joanne" ~ "Jo"))
+  mutate(baker = if_else(baker == "Joanne", "Jo", baker))
 ```
+
 
 Merge bakers and bakes data sets
 ```{r}
