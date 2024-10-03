@@ -229,7 +229,7 @@ results = read_csv("gbb_datasets/results.csv", skip = 2) |>
 ```
 
 ```{r}
-colnames(results) <- c("Series", "Episode", "baker", "Technical", "Result")
+colnames(results) <- c("series", "Episode", "baker", "Technical", "Result")
 ```
 Removing the first two rows in the results file
 ```{r}
@@ -283,7 +283,7 @@ print(bakers_and_bakes)
 Merge bakers and bakes data to the results data
 ```{r}
 gbb = 
-  left_join(bakers_and_bakes, bakes_df, by = c("series", "baker"))
+  left_join(bakers_and_bakes, results, by = c("series", "baker"))
 ```
 Check to see if merge worked
 ```{r}
@@ -293,3 +293,37 @@ Export to a CSV file in folder
 ```{r}
 write_csv(gbb, "gbb_datasets/gbb.csv")
 ```
+
+
+Importing and cleaning viewers data 
+```{r}
+viewers_df <- read_csv("gbb_datasets/viewers.csv", show_col_types = FALSE) %>%
+  janitor::clean_names()
+```
+
+Showing the first 10 line 
+```{r}
+head(viewers_df, 10)
+```
+
+Finding the avergae viewing in season 1
+```{r}
+average_season_1 <- viewers_df %>%
+  summarize(average_viewership = mean(series_1, na.rm = TRUE))
+```
+Print the average
+```{r}
+print(average_season_1)
+```
+The average viewership in season 1 is 2.77.
+
+Finding the avergae viewing in season 5
+```{r}
+average_season_5 <- viewers_df %>%
+  summarize(average_viewership = mean(series_5, na.rm = TRUE))
+```
+Print the average
+```{r}
+print(average_season_5)
+```
+The average viewership in season 5 is 10.04. 
