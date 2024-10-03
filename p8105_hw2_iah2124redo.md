@@ -463,3 +463,37 @@ collected by Professor Trash Wheel is 246.72tons. The total number of
 cigarette butts collected by Gwynnda in June of 2022 was 18120. This
 combined data set shows key information on how much trash is collected
 by each wheel, type of trash, and when it was collected.
+
+### Problem 3
+
+Importing and Cleaning the GBB data
+
+``` r
+bakers = read_csv("gbb_datasets/bakers.csv",
+    na = c("NA", "", "."), 
+    show_col_types = FALSE) %>%
+  janitor::clean_names() %>%
+  mutate(baker = word(baker_name, 1)) 
+
+bakes = read_csv("gbb_datasets/bakes.csv",
+                      na = c("NA", "", "."), 
+                      show_col_types = FALSE) %>%
+  janitor::clean_names()
+
+results = read_csv("gbb_datasets/results.csv",
+                      na = c("NA", "", "."), 
+                      show_col_types = FALSE) %>%
+  janitor::clean_names() 
+```
+
+Changing the column names in the results file
+
+``` r
+colnames(results) <- c("Series", "Episode", "Baker", "Technical", "Result")
+```
+
+Removing the first two rows in the results file
+
+``` r
+results = results[-c(1, 2), ]
+```
