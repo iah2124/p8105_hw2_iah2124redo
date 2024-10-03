@@ -466,34 +466,16 @@ by each wheel, type of trash, and when it was collected.
 
 ### Problem 3
 
-Importing and Cleaning the GBB data
+Importing and cleaning the data
 
 ``` r
-bakers = read_csv("gbb_datasets/bakers.csv",
-    na = c("NA", "", "."), 
-    show_col_types = FALSE) %>%
-  janitor::clean_names() %>%
-  mutate(baker = word(baker_name, 1)) 
-
-bakes = read_csv("gbb_datasets/bakes.csv",
-                      na = c("NA", "", "."), 
-                      show_col_types = FALSE) %>%
-  janitor::clean_names()
-
-results = read_csv("gbb_datasets/results.csv",
-                      na = c("NA", "", "."), 
-                      show_col_types = FALSE) %>%
+bakers_df = read_csv("gbb_datasets/bakers.csv") |>
   janitor::clean_names() 
-```
 
-Changing the column names in the results file
+bakes_df = read_csv("gbb_datasets/bakes.csv",
+                    na = c("NA", "", ".", "N/A", "UNKNOWN", "Unknown")) |>
+  janitor::clean_names() 
 
-``` r
-colnames(results) <- c("Series", "Episode", "Baker", "Technical", "Result")
-```
-
-Removing the first two rows in the results file
-
-``` r
-results = results[-c(1, 2), ]
+results = read_csv("gbb_datasets/results.csv", skip = 2) |>
+   janitor::clean_names() 
 ```
