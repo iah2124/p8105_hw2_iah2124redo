@@ -291,6 +291,21 @@ Export to a CSV file in folder
 write_csv(gbb, "gbb_datasets/gbb.csv")
 ```
 
+Creating a reader-friendly table showing the star baker or winner of each episode in Seasons 5 through 10
+```{r}
+results_filtered <- results %>%
+  filter(series >= 5 & series <= 10) %>%
+  select(series, Episode, baker, Result) %>%
+  filter(Result == "STAR BAKER" | Result == "WINNER")
+
+results_filtered <- results_filtered %>%
+  rename(Season = series, "Episode Number" = Episode, Baker = baker, "Result Type" = Result)
+
+print(head(results_filtered))
+```
+
+In season 1, Nancy won the star baker in the first week, but did not win again until the final episode. This is a slight surprise. In season 6, Nadiya won the two weeks leading up to her final win, as well as one previous win. This is a less surprising win. Similar to season 6, in season 7, Candice won after winning star baker a few times during the season. Season 8 is similar with Sophie winning star baker a few times and then won the final round. In season 9, Rahul won star baker a few times in the start, and then didn't win again until the final. This is also slightly surprising. Season 10 is a shocker because David did not win any star baker but ended up winning the season!
+
 
 Importing and cleaning viewers data 
 ```{r}
