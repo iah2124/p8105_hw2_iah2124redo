@@ -243,3 +243,19 @@ print(na_bakers_df)
 ```
 25 reported missing bakers who do not have the information across datasets
 
+Checking for those who do not have the same information recorded in bakers and bakes data sets
+```{r}
+anti_join(bakers_df, bakes_df)
+```
+
+Checking for those who do not have the same information in bakers and results data sets
+```{r}
+anti_join(bakers_df, results)
+```
+Identified Jo Wheatley 
+
+Change Jo's name to be consistent across data sets
+```{r}
+results = results |>
+  mutate(baker = case_match(baker, "Joanne" ~ "Jo"))
+```

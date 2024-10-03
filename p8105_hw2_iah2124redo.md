@@ -515,3 +515,44 @@ print(na_bakers_df)
 
 25 reported missing bakers who do not have the information across
 datasets
+
+Checking for those who do not have the same information recorded in
+bakers and bakes data sets
+
+``` r
+anti_join(bakers_df, bakes_df)
+## # A tibble: 26 × 6
+##    baker  baker_last_name series baker_age baker_occupation             hometown
+##    <chr>  <chr>            <dbl>     <dbl> <chr>                        <chr>   
+##  1 Alice  Fevronia            10        28 Geography teacher            Essex   
+##  2 Amelia LeBruin             10        24 Fashion designer             Halifax 
+##  3 Antony Amourdoux            9        30 Banker                       London  
+##  4 Briony Williams             9        33 Full-time parent             Bristol 
+##  5 Dan    Beasley-Harling      9        36 Full-time parent             London  
+##  6 Dan    Chambers            10        32 Support worker               Rotherh…
+##  7 David  Atherton            10        36 International health adviser Whitby  
+##  8 Helena Garcia              10        40 Online project manager       Leeds   
+##  9 Henry  Bird                10        20 Student                      Durham  
+## 10 Imelda McCarron             9        33 Countryside recreation offi… County …
+## # ℹ 16 more rows
+```
+
+Checking for those who do not have the same information in bakers and
+results data sets
+
+``` r
+anti_join(bakers_df, results)
+## # A tibble: 1 × 6
+##   baker baker_last_name series baker_age baker_occupation hometown    
+##   <chr> <chr>            <dbl>     <dbl> <chr>            <chr>       
+## 1 Jo    Wheatley             2        41 Housewife        Ongar, Essex
+```
+
+Identified Jo Wheatley
+
+Change Jo’s name to be consistent across data sets
+
+``` r
+results = results |>
+  mutate(baker = case_match(baker, "Joanne" ~ "Jo"))
+```
